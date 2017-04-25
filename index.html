@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>All Day Railfanning Soundboard</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Social Buttons CSS -->
+    <link href="css/bootstrap-social.css" rel="stylesheet">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">All Day Railfanning Soundboard</a>
+            </div>
+            <!-- /.navbar-header -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <button type="button" class="btn btn-warning btn-lg btn-block btn-sound play"
+                            data-src="sounds/instantrapairhorn.wav">Rap Horn</button>
+                        </div>
+                        <div class="panel-body">
+                            <button type="button" class="btn btn-warning btn-lg btn-block btn-sound play"
+                            data-src="sounds/assclip.wav">Ass</button>
+                        </div>
+                        <div class="panel-body">
+                            <button type="button" class="btn btn-warning btn-lg btn-block btn-sound play"
+                            data-src="sounds/ThatsRight.wav">That's Right</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script>
+
+$("button.play").click(function() {
+    
+  var audioFile = $(this).attr("data-src");
+  $("<audio></audio>").attr({
+    'src':audioFile,
+    'volume':0.4,
+    'autoplay':'autoplay'
+}).appendTo("body");
+  });
+</script>
+
+</body>
+
+</html>
