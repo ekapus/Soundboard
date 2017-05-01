@@ -46,6 +46,17 @@
 						<li><a href="#Thomas" class="btn-mega">Thomas</a></li>
 						<li><a href="#HornsEtc" class="btn-mega">Horns Etc...</a></li>
 					</ul>
+					<button type="button" class="btn btn-info btn-mega sentence-start">
+										<span class="glyphicon glyphicon-forward"></span> 
+									Sentence Mode</button>
+									<button type="button" class="btn btn-success btn-mega sentence-play" disabled="true">
+										<span class="glyphicon glyphicon-play"></span> 
+									Play</button>
+									<button type="button" class="btn btn-danger btn-mega sentence-cancel">
+										<span class="glyphicon glyphicon-stop"></span> 
+									Cancel</button>
+									<span class="badge clip-count">0</span>
+									
 				</div>
 				<!-- /.navbar-header -->
 			</div>
@@ -1409,24 +1420,100 @@
 		<!-- Bootstrap Core JavaScript -->
 		<script src="js/bootstrap.min.js"></script>
 		<script>
-			$(document).ready(function(){
-			$(".nav-pills a").click(function(){
-			$(this).tab('show');
-			return false;
-			});
-			$('.nav-pills a').on('shown.bs.tab', function(event){
-			var x = $(event.target).text();         // active tab
-			var y = $(event.relatedTarget).text();  // previous tab
-			$(".act span").text(x);
-			$(".prev span").text(y);
-			});
-			});
-			
-			$("button.play").click(function() {
-			var audioFile = $(this).attr("data-src");
+			$(document).ready(function() {
+    $(".sentence-play").hide();
+    $(".sentence-cancel").hide();
+    $(".clip-count").hide();
+    $(".nav-pills a").click(function() {
+        $(this).tab('show');
+        return false;
+    });
+    $('.nav-pills a').on('shown.bs.tab', function(event) {
+        var x = $(event.target).text(); // active tab
+        var y = $(event.relatedTarget).text(); // previous tab
+        $(".act span").text(x);
+        $(".prev span").text(y);
+    });
+});
+var clips = [];
+enableAudioClick();
+p=0;
+$(".sentence-play").click(function() {
+	
+	clips[p].play();
+	p++;
+	clipsRemaining = clips.length-p;
+	if(clipsRemaining == 0){
+		$(".clip-count").text(clipsRemaining);
+		clips = [];
+		p=0;
+		$(".sentence-play").prop('disabled', true);
+	} else{
+		$(".clip-count").text(clipsRemaining);
+		
+	}
+
+});
+i=-1;
+
+function clearSentenceMode() {
+			$("button.play").off("click");
+			enableAudioClick();
+            $(".sentence-start").show();
+            $(".sentence-play").hide();
+            $(".sentence-cancel").hide();
+            $(".clip-count").hide();
+}
+
+$(".sentence-start").click(function() {
+        
+		$(".sentence-start").hide();
+        $(".sentence-play").show();
+        $(".sentence-cancel").show();
+        $(".clip-count").show();
+        $("button.play").off("click");
+
+
+
+        $("button.play").click(function() {
+			$(".sentence-play").prop('disabled', false);
+            var audioFile = $(this).attr("data-src");
 			var audio = new Audio(audioFile);
-			audio.play();
-			})
+            clips.push(audio);
+            $(".clip-count").text(Number($(".clip-count").text())+1);
+        })
+        $(".sentence-cancel").click(function() {
+            enableAudioClick();
+			clips=[];
+			p=0;
+            $(".sentence-start").show();
+            $(".sentence-play").hide();
+            $(".sentence-cancel").hide();
+			$(".clip-count").hide();
+			$(".sentence-play").prop('disabled', false);
+			$(".clip-count").text(0);
+
+        })
+    }
+
+
+
+)
+
+
+function enableAudioClick() {
+    $("button.play").off("click");
+    $("button.play").click(function() {
+        var audioFile = $(this).attr("data-src");
+        var audio = new Audio(audioFile);
+        audio.play();
+    })
+}
+
+function disableAudioClick() {
+    $("button.play").unbind();
+}
+			
 		</script>
 	</body>
 </html>
